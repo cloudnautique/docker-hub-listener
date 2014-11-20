@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd $(dirname $0)/..
+
+export DOCKER_HUB_REPOS='{"good_token": "good_repo", "other_token": "other_repo"}'
+
+py.test -vv
