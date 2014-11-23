@@ -8,6 +8,9 @@ class Repo(object):
     def __getattr__(self, name):
         return self.__dict__['_data'].get(name, None)
 
+    def __getitem__(self, key):
+        return self.__getattr__(key)
+
     def __setattr__(self, name, value):
         pass
 

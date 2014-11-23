@@ -1,3 +1,4 @@
+import subprocess32
 import docker_hub_listener
 
 app = docker_hub_listener.app.test_client()
@@ -26,10 +27,11 @@ def test_process_hook_post_bad_token():
     assert response.status_code == 401
 
 
-def test_process_hook_with_good_token():
+def test_process_hook_with_good_token(mocker):
     # Post with valid URL and token return(200)
+    mocker.patch('subprocess32.Popen')
     response = app.post('/api/v1/webhooks/hub.docker.com/good_token')
+
     assert response.status_code == 200
-
-
-
+    subprocess32.Popen.assert_called_once_with(
+        ['sudo', 'docker', '-H', 'unix:///var/run/docker.sock', 'pull', 'good_repo'])

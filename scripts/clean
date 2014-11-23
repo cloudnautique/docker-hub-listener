@@ -1,0 +1,10 @@
+#!/bin/bash
+
+set -e -x
+
+cd $(dirname $0)/..
+
+rm -rf .tox
+rm -rf *egg-info
+rm -rf docker_hub_listener-*
+find . -name "*.py[co]" -exec rm {} \;

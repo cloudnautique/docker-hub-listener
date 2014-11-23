@@ -3,5 +3,5 @@
 cd $(dirname $0)/..
 
 apt-get update
-apt-get install python-pip  python-dev 
+apt-get install -y python-pip  python-dev docker.io
 pip install --upgrade pip tox

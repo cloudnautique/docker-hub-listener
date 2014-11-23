@@ -1,7 +1,19 @@
 #!/bin/bash
 
+set -e -x
+
 cd $(dirname $0)/..
 
-export DOCKER_HUB_REPOS='{"good_token": "good_repo", "other_token": "other_repo"}'
+find . -iname "*.pyc" -exec rm {} \;
+find . -iname "*.pyo" -exec rm {} \;
 
-py.test -vv
+TMP=$(mktemp -d --tmpdir=/tmp)
+
+trap "rm -rf $TMP" exit
+
+rsync -a ./ $TMP
+pushd $TMP
+
+DOCKER_HUB_REPOS='{"good_token": "good_repo", "other_token": "other_repo"}' tox
+
+popd
