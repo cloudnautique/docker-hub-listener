@@ -1,9 +1,0 @@
-README.txt
-setup.py
-docker_hub_listener.egg-info/PKG-INFO
-docker_hub_listener.egg-info/SOURCES.txt
-docker_hub_listener.egg-info/dependency_links.txt
-docker_hub_listener.egg-info/top_level.txt
-tests/__init__.py
-tests/test_docker_hub_listener.py
-tests/test_repos.py
