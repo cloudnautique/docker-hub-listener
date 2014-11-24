@@ -5,7 +5,6 @@ import logging
 import subprocess32
 
 from flask import Flask, request, abort
-from repo import Repo
 
 app = Flask(__name__)
 
@@ -16,9 +15,9 @@ logger.setLevel(logging.INFO)
 logger.addHandler(logging.StreamHandler())
 
 
-def get_repo_config(token=None):
+def get_repo_config():
     values = json.loads(os.environ.get('DOCKER_HUB_REPOS', '{}'))
-    return Repo(values)
+    return values
 
 
 def get_docker_host():
@@ -40,7 +39,7 @@ def process_hook(token):
     '''
     if request.method == 'POST':
         repo_config = get_repo_config()
-        repo = repo_config[token]
+        repo = repo_config.get(token, None)
 
         if repo:
             logger.info('Webhook received for %s', repo)
